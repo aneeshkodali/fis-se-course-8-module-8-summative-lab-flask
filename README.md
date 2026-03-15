@@ -12,6 +12,7 @@ This project comprises of an inventory management system that will allow employe
 
 The following file/folder structure is:
 - [`server.py`](./server.py): contains backend routes and view functions for performing CRUD operations on items data
+- [`utils`](./utils/): contains helper functions
 
 ## Project Use
 
