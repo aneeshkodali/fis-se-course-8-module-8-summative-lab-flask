@@ -100,6 +100,10 @@ def update_inventory(id):
                 **inventory_item,
                 **data, # make sure data is 2nd so it's data overwrites prior data
             }
+
+            # update bool
+            update_bool = True
+
             # break out of loop
             break
 
@@ -110,6 +114,39 @@ def update_inventory(id):
     # save data
     save_data(file_path=INVENTORY_FILE, data=inventory_data)
     return jsonify(inventory_item), 200
+
+# delete inventory
+@app.route('/events/<int:id>', methods=['DELETE'])
+def delete_inventory(id):
+
+    # read in inventory data
+    inventory_data = load_data(file_path=INVENTORY_FILE)
+
+    # set variable to keep track of delete
+    delete_bool = False
+
+    # loop through inventory data
+    for inventory_item in inventory_data:
+
+        # look for item based on id
+        if inventory_item['id'] == id:
+
+            # delete item
+            inventory_data.remove(inventory_item)
+
+            # update bool
+            delete_bool = True
+
+            # break out of loop
+            break
+
+    if not delete_bool:
+        # exit if no item found
+        return jsonify({"error": f"Inventory item with ID {id} not found"}), 404 # return error if not found
+    
+    # save data
+    save_data(file_path=INVENTORY_FILE, data=inventory_data)
+    return jsonify({'message': f"Inventory item with ID {id} deleted"}), 204
 
 
 if __name__ == '__main__':
