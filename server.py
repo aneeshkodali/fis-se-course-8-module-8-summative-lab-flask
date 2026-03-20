@@ -53,7 +53,7 @@ def create_inventory():
     data = request.get_json()
 
     # exit if not product in request data
-    if not data.get('product'):
+    if (not data) or (not data.get('product')):
         return jsonify({'message': 'Product not found in request'}), 400
     
     # read in inventory data
@@ -63,10 +63,11 @@ def create_inventory():
     new_id = max((i['id'] for i in inventory_data), default=0) + 1
     
     # create new inventory item
+    product_api_data = search_product(search_term=data.get('product')) or {}
     new_inventory = {
         **{'id': new_id},
         **data,
-        **search_product(search_term=data.get('product'))
+        **product_api_data,
     }
 
     # append to existing data
@@ -83,6 +84,13 @@ def update_inventory(id):
     # get incoming request data
     data = request.get_json()
 
+    # exit if no request data
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+    
+    # remove id (if exists) from request data
+    data.pop('id', None)
+
     # read in inventory data
     inventory_data = load_data(file_path=INVENTORY_FILE)
 
@@ -90,17 +98,17 @@ def update_inventory(id):
     update_bool = False
 
     # loop through inventory data
-    for inventory_item in inventory_data:
+    for i, inventory_item in enumerate(inventory_data):
 
         # look for item based on id
         if inventory_item['id'] == id:
 
             # update item
-            inventory_item = {
+            inventory_data[i] = {
                 **inventory_item,
                 **data, # make sure data is 2nd so it's data overwrites prior data
             }
-
+            updated_item = inventory_data[i]
             # update bool
             update_bool = True
 
@@ -113,10 +121,10 @@ def update_inventory(id):
     
     # save data
     save_data(file_path=INVENTORY_FILE, data=inventory_data)
-    return jsonify(inventory_item), 200
+    return jsonify(updated_item), 200
 
 # delete inventory
-@app.route('/events/<int:id>', methods=['DELETE'])
+@app.route('/inventory/<int:id>', methods=['DELETE'])
 def delete_inventory(id):
 
     # read in inventory data
@@ -126,13 +134,13 @@ def delete_inventory(id):
     delete_bool = False
 
     # loop through inventory data
-    for inventory_item in inventory_data:
+    for i, inventory_item in enumerate(inventory_data):
 
         # look for item based on id
         if inventory_item['id'] == id:
 
             # delete item
-            inventory_data.remove(inventory_item)
+            del inventory_data[i]
 
             # update bool
             delete_bool = True
@@ -146,7 +154,7 @@ def delete_inventory(id):
     
     # save data
     save_data(file_path=INVENTORY_FILE, data=inventory_data)
-    return jsonify({'message': f"Inventory item with ID {id} deleted"}), 204
+    return jsonify({'message': f"Inventory item with ID {id} deleted"}), 200
 
 
 if __name__ == '__main__':
