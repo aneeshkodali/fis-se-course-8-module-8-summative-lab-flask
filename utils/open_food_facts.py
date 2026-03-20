@@ -12,7 +12,7 @@ OPEN_FOOD_FACTS_FIELD_LIST_CONCAT = ','.join(OPEN_FOOD_FACTS_FIELD_LIST)
 
 
 # search api for product based on name
-def search_product_name(product_name):
+def search_product(search_term):
     '''
     Retrieves product from api
     - Uses search endpoint
@@ -23,7 +23,7 @@ def search_product_name(product_name):
     endpoint = '/cgi/search.pl'
     api_url = f"{OPEN_FOOD_FACTS_BASE_URL}{endpoint}"
     params = {
-        'search_terms': product_name,
+        'search_terms': search_term,
         'search_simple': 1,
         'action': 'process',
         'json': 1,
@@ -39,6 +39,6 @@ def search_product_name(product_name):
     # return product (if exists)
     product = products[0] if products else None
     if not product:
-        print(f"No product with name `{product_name}` found.")
+        print(f"No product with  `{search_term}` found.")
         return {}
     return product
