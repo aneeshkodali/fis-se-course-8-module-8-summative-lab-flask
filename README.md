@@ -11,7 +11,10 @@ This project comprises of an inventory management system that will allow employe
 ## File Structure
 
 The following file/folder structure is:
+- [`cli.py`](./cli.py): contains CLI program that serves as frontend for app
+- [`data`]: contains app data (if exists)
 - [`server.py`](./server.py): contains backend routes and view functions for performing CRUD operations on items data
+- [`tests`](./tests/): contains pytest to validate code logic
 - [`utils`](./utils/): contains helper functions
 
 ## Project Use
