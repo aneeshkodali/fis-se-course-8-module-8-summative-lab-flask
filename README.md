@@ -39,3 +39,41 @@ Activate virtual environment:
 ```sh
 pipenv shell
 ```
+
+Run the server:
+```sh
+python server.py
+```
+
+### API Endpoints
+
+#### GET /inventory
+Returns all inventory items
+
+#### GET /inventory/<id>
+Returns a single inventory item by ID
+
+#### POST /inventory
+Creates a new inventory item
+
+Request body:
+```json
+{
+  "product": "almond milk",
+  "quantity": 10,
+  "price": 5
+}
+```
+
+#### PATCH /inventory/<id>
+Updates an inventory item
+
+Request body:
+```json
+{
+  "price": 8
+}
+```
+
+#### DELETE /inventory/<id>
+Deletes an inventory item
