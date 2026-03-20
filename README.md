@@ -40,6 +40,8 @@ Activate virtual environment:
 pipenv shell
 ```
 
+### Server
+
 Run the server:
 ```sh
 python server.py
@@ -77,3 +79,54 @@ Request body:
 
 #### DELETE /inventory/<id>
 Deletes an inventory item
+
+### CLI
+
+To use the CLI (make sure server is running in a separate terminal):
+
+```sh
+python cli.py <command> [options]
+```
+
+### CLI Commands
+
+#### List inventory items
+```sh
+python cli.py list-inventory
+```
+
+#### Get a single inventory item
+```sh
+python cli.py get-inventory --id 1
+```
+
+#### Add a new inventory item
+```sh
+python cli.py add-inventory --product "almond milk" --quantity 10 --price 5
+```
+
+#### Update an inventory item
+```sh
+python cli.py update-inventory --id 1 --price 7
+```
+
+```sh
+python cli.py update-inventory --id 1 --quantity 15
+```
+
+```sh
+python cli.py update-inventory --id 1 --price 7 --quantity 15
+```
+
+#### Delete an inventory item
+```sh
+python cli.py delete-inventory --id 1
+```
+
+### Testing
+
+Run tests using:
+
+```sh
+pytest -x
+```
