@@ -4,7 +4,7 @@ import requests
 # constants
 OPEN_FOOD_FACTS_BASE_URL = 'https://world.openfoodfacts.org'
 OPEN_FOOD_FACTS_FIELD_LIST = [
-    'code', 'product_name', 'brands', 'quantity', 'image_url', 'nutriscore_grade',
+    'code', 'product_name', 'brands', 'image_url', 'nutriscore_grade',
 ] # assumes these fields that are to be returned are FIXED
 
 # create variables from constants
