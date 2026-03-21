@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # set env var (before importing server)
-os.environ['INVENTORY_FILE'] = 'data/test_inventory.json'
+os.environ['INVENTORY_FILE'] = 'data/test_inventory_server.json'
 
 # imports
 from server import app
