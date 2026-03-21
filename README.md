@@ -15,6 +15,7 @@ The following file/folder structure is:
 - [`data`]: contains app data (if exists)
 - [`server.py`](./server.py): contains backend routes and view functions for performing CRUD operations on items data
 - [`tests`](./tests/): contains pytest to validate code logic
+  - Note: in order to run [`test_cli.py`](./tests/test_cli.py), server must be running in a separate terminal
 - [`utils`](./utils/): contains helper functions
 
 ## Project Use
@@ -130,6 +131,17 @@ python cli.py delete-inventory --id 1
 
 Run tests using:
 
+All test files:
 ```sh
 pytest -x
+```
+
+Server file:
+```sh
+pytest -x tests/test_server.py
+```
+
+CLI file (server must be running in a separate terminal):
+```sh
+pytest -x tests/test_cli.py
 ```
