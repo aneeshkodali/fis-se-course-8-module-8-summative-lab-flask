@@ -10,11 +10,8 @@ os.environ['INVENTORY_FILE'] = 'data/test_inventory_server.json'
 from server import app
 from utils.storage import save_data
 
-
-
 # constants
 TEST_FILE = os.environ['INVENTORY_FILE']
-
 
 def reset_file():
     """
