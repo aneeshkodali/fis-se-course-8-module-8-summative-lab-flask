@@ -2,12 +2,13 @@
 from flask import Flask, jsonify, request
 from utils.open_food_facts import search_product
 from utils.storage import load_data, save_data
+import os
 
 # initialize flask app
 app = Flask(__name__)
 
 # constants
-INVENTORY_FILE = 'data/inventory.json'
+INVENTORY_FILE = os.getenv('INVENTORY_FILE', 'data/inventory.json')
 
 # '/' route
 # returns a welcome message
